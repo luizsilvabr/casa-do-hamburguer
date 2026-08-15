@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   BasketIcon,
+  HamburgerIcon,
   InstagramLogoIcon,
   PhoneIcon,
   ShoppingCartIcon,
@@ -9,15 +10,14 @@ import { useCartStore } from "../../stores/cartStore";
 import CarrinhoDrawer from "../../components/carrinho/CarrinhoDrawer";
 import ProdutoModal from "../../components/produto/ProdutoModal";
 import { http } from "../../lib/http";
+import { resolveImageUrl } from "../../lib/images";
 import type { Category, Product } from "../../types";
 
-// Categoria "Todos" não existe no banco — é só uma opção visual fixa,
-// sempre primeira e pré-selecionada, que mostra o cardápio inteiro sem filtro.
 const ALL_CATEGORY_ID = "todos";
 const ALL_CATEGORY: Category = {
   id: ALL_CATEGORY_ID,
   name: "Todos",
-  order: -1, // sempre primeiro, antes de qualquer order vindo da API
+  order: -1,
   isActive: true,
 };
 
@@ -33,9 +33,6 @@ export default function Cardapio() {
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // fade no grid ao trocar categoria: só troca o CONTEÚDO exibido
-  // (displayedProducts) depois que o fade-out visual já rodou por completo —
-  // por isso duration precisa bater com o duration-200 da classe Tailwind
   const FADE_MS = 200;
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
   const [displayedCategory, setDisplayedCategory] = useState<Category | null>(
@@ -51,7 +48,6 @@ export default function Cardapio() {
       setIsGridVisible(true);
     }, FADE_MS);
     return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategoryId, products]);
 
   useEffect(() => {
@@ -67,8 +63,6 @@ export default function Cardapio() {
 
         setCategories(categoriasData);
         setProducts(produtosData.map(normalizeProduct));
-        // selectedCategoryId já começa em ALL_CATEGORY_ID — não precisa
-        // mexer nele aqui, "Todos" continua selecionado até o usuário clicar
       } catch {
         setError("Não foi possível carregar o cardápio. Tente novamente.");
       } finally {
@@ -79,14 +73,12 @@ export default function Cardapio() {
     loadCardapio();
   }, []);
 
-  // "Todos" sempre primeiro, seguido das categorias reais vindas da API
   const categoriesWithAll: Category[] = [ALL_CATEGORY, ...categories];
 
   const selectedCategory = categoriesWithAll.find(
     (c) => c.id === selectedCategoryId,
   );
 
-  // mapa categoryId -> order, pra não precisar de um .find() por produto
   const categoryOrderById = new Map(categories.map((c) => [c.id, c.order]));
 
   const filteredProducts =
@@ -182,11 +174,17 @@ export default function Cardapio() {
                 ) : (
                   displayedProducts.map((produto) => (
                     <div key={produto.id} className="flex gap-4">
-                      <img
-                        src={produto.imageUrl}
-                        alt={produto.name}
-                        className="w-[300px] h-[240px] object-cover rounded-[5px]"
-                      />
+                      {resolveImageUrl(produto.imageUrl) ? (
+                        <img
+                          src={resolveImageUrl(produto.imageUrl)}
+                          alt={produto.name}
+                          className="w-[300px] h-[240px] object-cover rounded-[5px]"
+                        />
+                      ) : (
+                        <div className="shrink-0 w-[289px] h-[240px] rounded-[5px] bg-[#E4D6B8] flex items-center justify-center text-[#B0A488]">
+                          <HamburgerIcon size={72} />
+                        </div>
+                      )}
                       <div className="flex flex-col justify-between w-full">
                         <div>
                           <h3 className="text-[#F3E9D2] font-alfa text-[20px]">

@@ -6,6 +6,7 @@ import {
   createProduct,
   updateProduct,
   deactivateProduct,
+  reactivateProduct,
 } from "../services/produtos.service.js";
 import { createProductSchema } from "../schemas/produtos.schema.js";
 import { getIdParam } from "../utils/getIdParam.js";
@@ -42,5 +43,11 @@ export async function updateProductController(req: Request, res: Response) {
 export async function deactivateProductController(req: Request, res: Response) {
   const id = getIdParam(req.params.id, "Id do produto é obrigatório");
   const product = await deactivateProduct(id);
+  return res.status(200).json(product);
+}
+
+export async function reactivateProductController(req: Request, res: Response) {
+  const id = getIdParam(req.params.id, "Id do produto é obrigatório");
+  const product = await reactivateProduct(id);
   return res.status(200).json(product);
 }

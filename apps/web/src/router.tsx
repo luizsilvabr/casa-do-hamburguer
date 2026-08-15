@@ -1,8 +1,10 @@
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter, Navigate, Outlet } from "react-router";
 import Cardapio from "./routes/cardapio/Cardapio";
 import Login from "./routes/admin/Login";
-import Painel from "./routes/admin/Painel";
+import Categorias from "./routes/admin/Categorias";
+import Produtos from "./routes/admin/Produtos";
 import AdminGuard from "./components/admin/AdminGuard";
+import AdminLayout from "./components/admin/AdminLayout";
 
 // Layout público (cardápio)
 const SiteLayout = () => {
@@ -19,10 +21,24 @@ export const router = createBrowserRouter([
     children: [{ path: "/", element: <Cardapio /> }],
   },
 
+  // Login do admin
   { path: "/admin/login", element: <Login /> },
 
+  // Área protegida do admin
   {
     element: <AdminGuard />,
-    children: [{ path: "/admin", element: <Painel /> }],
+    children: [
+      {
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "/admin",
+            element: <Navigate to="/admin/categorias" replace />,
+          },
+          { path: "/admin/categorias", element: <Categorias /> },
+          { path: "/admin/produtos", element: <Produtos /> },
+        ],
+      },
+    ],
   },
 ]);

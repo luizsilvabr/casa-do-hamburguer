@@ -8,6 +8,7 @@ import {
   createProductController,
   updateProductController,
   deactivateProductController,
+  reactivateProductController,
 } from "../controllers/produtos.controller.js";
 import {
   createGroupController,
@@ -31,6 +32,11 @@ produtosRoutes.delete(
   "/:id",
   authGuard,
   asyncHandler(deactivateProductController),
+);
+produtosRoutes.patch(
+  "/:id/reativar",
+  authGuard,
+  asyncHandler(reactivateProductController),
 );
 
 produtosRoutes.post(

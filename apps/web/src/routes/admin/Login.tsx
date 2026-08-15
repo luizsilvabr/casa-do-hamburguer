@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import { useAuthStore } from "../../stores/authStore";
 import { HttpError } from "../../lib/http";
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
 
 interface LocationState {
   from?: { pathname: string };
@@ -20,6 +21,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -54,7 +56,7 @@ export default function Login() {
       <section className="w-full max-w-[460px] bg-[#F3E9D2] px-15 py-12 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
         {/* LOGO */}
         <header className="text-center">
-          <p className="font-pacifico text-[#C81D25] text-[34px] leading-none -mb-1 transform -rotate-z-[-6deg] mb-[3px]">
+          <p className="font-pacifico text-[#C81D25] text-[34px] leading-none -mb-1 transform -rotate-z-[6deg] mb-[2px]">
             Cordeiro's
           </p>
           <h1 className="font-alfa text-[#171210] text-[46px] leading-none tracking-tight">
@@ -90,23 +92,37 @@ export default function Login() {
             />
           </div>
 
-          <div className="mb-2">
-            <label
-              htmlFor="password"
-              className="block font-oswald font-bold text-[#3A2317] text-[13px] tracking-[0.15em] mb-1.5"
-            >
-              SENHA
-            </label>
-            <input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full bg-white rounded-[5px] border border-[#D8C9A6] px-3.5 py-1.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30"
-            />
-          </div>
+            <div className="mb-2">
+              <label
+                htmlFor="password"
+                className="block font-oswald font-bold text-[#3A2317] text-[13px] tracking-[0.15em] mb-1.5"
+              >
+                SENHA
+              </label>
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="off"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full bg-white rounded-[5px] border border-[#D8C9A6] pl-3.5 pr-11 py-2.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E8169] hover:text-[#3A2317] cursor-pointer transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeSlashIcon size={20} />
+                  ) : (
+                    <EyeIcon size={20} />
+                  )}
+                </button>
+              </div>
+            </div>
 
           {error && (
             <p

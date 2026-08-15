@@ -12,6 +12,9 @@ export async function getCategories() {
 export async function getAllCategories() {
   return prisma.category.findMany({
     orderBy: [{ order: "asc" }, { name: "asc" }],
+    include: {
+      _count: { select: { products: true } },
+    },
   });
 }
 
@@ -73,8 +76,14 @@ export async function reactivateCategory(id: string) {
     throw new NotFoundError("Categoria não encontrada");
   }
 
+  const last = await prisma.category.findFirst({
+    where: { isActive: true },
+    orderBy: { order: "desc" },
+  });
+  const nextOrder = last ? last.order + 1 : 0;
+
   return prisma.category.update({
     where: { id },
-    data: { isActive: true },
+    data: { isActive: true, order: nextOrder },
   });
 }

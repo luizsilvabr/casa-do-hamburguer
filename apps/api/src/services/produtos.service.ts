@@ -4,7 +4,7 @@ import type { CreateProductInput } from "../schemas/produtos.schema.js";
 
 export async function getProducts() {
   return prisma.product.findMany({
-    where: { isActive: true },
+    where: { isActive: true, category: { isActive: true } },
     orderBy: { name: "asc" },
     include: {
       optionGroups: {
@@ -98,5 +98,17 @@ export async function deactivateProduct(id: string) {
   return prisma.product.update({
     where: { id },
     data: { isActive: false },
+  });
+}
+
+export async function reactivateProduct(id: string) {
+  const product = await prisma.product.findUnique({ where: { id } });
+  if (!product) {
+    throw new NotFoundError("Produto não encontrado");
+  }
+
+  return prisma.product.update({
+    where: { id },
+    data: { isActive: true },
   });
 }
