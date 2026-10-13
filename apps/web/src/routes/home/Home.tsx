@@ -178,7 +178,7 @@ export default function Home() {
                 <PhotoTile produto={featured[1]} className="h-[240px]" />
                 <div className="flex h-[240px] items-center justify-center rounded-card border border-white/10 bg-ink-soft">
                   <img
-                    src="/images/logo.png"
+                    src="/images/logo.svg"
                     alt=""
                     width={84}
                     height={84}

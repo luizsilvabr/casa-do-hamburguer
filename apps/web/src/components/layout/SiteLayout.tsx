@@ -50,7 +50,7 @@ export default function SiteLayout() {
             className={`flex items-center gap-3 rounded-brand ${FOCUS_RING}`}
           >
             <img
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt=""
               width={84}
               height={84}
@@ -122,7 +122,7 @@ export default function SiteLayout() {
         >
           <div className="flex max-w-sm items-center gap-4">
             <img
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt=""
               width={84}
               height={84}

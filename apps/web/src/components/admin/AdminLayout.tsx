@@ -26,10 +26,10 @@ export default function AdminLayout() {
         {/* LOGO */}
         <div className="px-6 pt-8 pb-5 text-center">
           <p className="font-pacifico text-[#C81D25] text-[22px] leading-none -mb-1">
-            Cordeiro's
+            Casa do
           </p>
           <p className="font-alfa text-[#F3E9D2] text-[26px] leading-none tracking-tight">
-            BURGUER
+            HAMBÚRGUER
           </p>
           <p className="font-oswald font-bold text-[#E8A93D] text-[12px] tracking-[0.32em] mt-1.5">
             ADMIN
