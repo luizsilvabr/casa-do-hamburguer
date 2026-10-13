@@ -57,10 +57,10 @@ export default function SiteLayout() {
               className="h-12 w-12 object-contain sm:h-14 sm:w-14"
             />
             <div className="leading-none">
-              <p className="font-alfa text-[17px] uppercase text-parchment sm:text-xl">
+              <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-gold sm:text-xs">
                 Casa do
               </p>
-              <p className="mt-1 font-pacifico text-[15px] text-gold">
+              <p className="mt-1.5 font-alfa text-[15px] uppercase tracking-normal text-parchment sm:text-[21px] sm:tracking-wide">
                 Hambúrguer
               </p>
             </div>
@@ -129,11 +129,13 @@ export default function SiteLayout() {
               loading="lazy"
               className="h-16 w-16 object-contain"
             />
-            <div>
-              <p className="font-alfa text-2xl uppercase text-parchment">
+            <div className="leading-none">
+              <p className="font-body text-xs font-bold uppercase tracking-[0.3em] text-gold">
                 Casa do
               </p>
-              <p className="font-pacifico text-lg text-gold">Hambúrguer</p>
+              <p className="mt-1.5 font-alfa text-2xl uppercase tracking-wide text-parchment">
+                Hambúrguer
+              </p>
             </div>
           </div>
 

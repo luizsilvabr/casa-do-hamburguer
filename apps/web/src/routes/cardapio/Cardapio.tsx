@@ -193,7 +193,7 @@ export default function Cardapio() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_140%_at_85%_0%,rgb(240_194_100/0.16),transparent_70%)]"
         />
         <div className={`${PAGE_X} ${PAGE_MAX} relative py-9 sm:py-12`}>
-          <h1 className="font-alfa text-[clamp(2.25rem,5vw,3.5rem)] uppercase leading-none text-parchment">
+          <h1 className="font-alfa text-[clamp(1.75rem,1.2rem+2.2vw,2.5rem)] uppercase leading-none text-parchment">
             Cardápio
           </h1>
           <p className="mt-3 max-w-[32rem] font-body text-[17px] leading-relaxed text-sand sm:text-[18px]">
@@ -296,7 +296,7 @@ export default function Cardapio() {
                     <div className="flex items-center gap-4">
                       <h2
                         id={`cat-${section.category.id}`}
-                        className="font-alfa text-[26px] uppercase leading-none text-gold sm:text-[32px]"
+                        className="font-alfa text-[22px] uppercase leading-none text-gold sm:text-[26px]"
                       >
                         {section.category.name}
                       </h2>

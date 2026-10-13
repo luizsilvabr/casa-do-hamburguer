@@ -56,11 +56,18 @@ export default function Login() {
       <section className="w-full max-w-[460px] bg-[#F3E9D2] px-15 py-12 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
         {/* LOGO */}
         <header className="text-center">
-          <p className="font-pacifico text-[#C81D25] text-[34px] leading-none -mb-1 transform -rotate-z-[6deg] mb-[2px]">
+          <img
+            src="/images/logo.svg"
+            alt=""
+            width={72}
+            height={72}
+            className="mx-auto mb-3 h-[72px] w-[72px]"
+          />
+          <p className="font-body text-[13px] font-bold uppercase tracking-[0.3em] text-[#C81D25]">
             Casa do
           </p>
-          <h1 className="font-alfa text-[#171210] text-[46px] leading-none tracking-tight">
-            HAMBÚRGUER
+          <h1 className="mt-1.5 font-alfa text-[34px] uppercase leading-none tracking-wide text-[#171210]">
+            Hambúrguer
           </h1>
 
           <div className="mt-5 mb-8">

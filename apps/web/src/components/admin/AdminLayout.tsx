@@ -25,11 +25,11 @@ export default function AdminLayout() {
       <aside className="w-[255px] shrink-0 bg-[#221A16] border-r border-[#3A2317] flex flex-col">
         {/* LOGO */}
         <div className="px-6 pt-8 pb-5 text-center">
-          <p className="font-pacifico text-[#C81D25] text-[22px] leading-none -mb-1">
+          <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8A93D] leading-none">
             Casa do
           </p>
-          <p className="font-alfa text-[#F3E9D2] text-[26px] leading-none tracking-tight">
-            HAMBÚRGUER
+          <p className="mt-1.5 font-alfa text-[22px] uppercase leading-none tracking-wide text-[#F3E9D2]">
+            Hambúrguer
           </p>
           <p className="font-oswald font-bold text-[#E8A93D] text-[12px] tracking-[0.32em] mt-1.5">
             ADMIN

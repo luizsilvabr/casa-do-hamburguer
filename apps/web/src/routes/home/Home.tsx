@@ -118,12 +118,12 @@ export default function Home() {
               </div>
             )}
 
-            <h1 className="font-alfa text-[clamp(2.5rem,6vw,4.5rem)] uppercase leading-[1.05] text-parchment">
+            <h1 className="font-alfa text-[clamp(1.75rem,1.2rem+2.6vw,3rem)] uppercase leading-[1.1] text-parchment">
               Seu burguer
               <span className="block text-gold">do seu jeito</span>
             </h1>
 
-            <p className="mt-6 max-w-[34rem] font-body text-[18px] leading-relaxed text-sand sm:text-[20px]">
+            <p className="mt-6 max-w-[34rem] font-body text-[17px] leading-relaxed text-sand sm:text-[18px]">
               Escolha seu favorito, personalize os adicionais e envie o pedido
               direto pelo WhatsApp.
             </p>
@@ -131,7 +131,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 to="/cardapio"
-                className={`inline-flex h-14 items-center gap-2 rounded-brand bg-brand-red px-8 font-body text-[17px] font-bold text-white transition-colors hover:bg-brand-red-dark ${FOCUS_RING}`}
+                className={`inline-flex h-14 w-full items-center justify-center gap-2 rounded-brand bg-brand-red px-8 sm:w-auto font-body text-[17px] font-bold text-white transition-colors hover:bg-brand-red-dark ${FOCUS_RING}`}
               >
                 Ver cardápio
                 <ArrowRightIcon size={18} weight="bold" aria-hidden="true" />
@@ -141,7 +141,7 @@ export default function Home() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex h-14 items-center gap-2 rounded-brand border border-white/20 px-7 font-body text-[17px] font-bold text-parchment transition-colors hover:border-gold hover:text-gold ${FOCUS_RING}`}
+                  className={`inline-flex h-14 w-full items-center justify-center gap-2 rounded-brand border border-white/20 px-7 sm:w-auto font-body text-[17px] font-bold text-parchment transition-colors hover:border-gold hover:text-gold ${FOCUS_RING}`}
                 >
                   <WhatsappLogoIcon size={20} weight="bold" aria-hidden="true" />
                   Falar no WhatsApp
@@ -234,7 +234,7 @@ export default function Home() {
           className={`${PAGE_X} ${PAGE_MAX} flex flex-col gap-6 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16`}
         >
           <div>
-            <h2 className="font-alfa text-3xl uppercase text-parchment sm:text-4xl">
+            <h2 className="font-alfa text-2xl uppercase text-parchment sm:text-3xl">
               Bateu a fome?
             </h2>
             <p className="mt-2 font-body text-[18px] text-sand">
