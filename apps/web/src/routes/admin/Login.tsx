@@ -57,10 +57,10 @@ export default function Login() {
         {/* LOGO */}
         <header className="text-center">
           <p className="font-pacifico text-[#C81D25] text-[34px] leading-none -mb-1 transform -rotate-z-[6deg] mb-[2px]">
-            Cordeiro's
+            Casa do
           </p>
           <h1 className="font-alfa text-[#171210] text-[46px] leading-none tracking-tight">
-            BURGUER
+            HAMBÚRGUER
           </h1>
 
           <div className="mt-5 mb-8">

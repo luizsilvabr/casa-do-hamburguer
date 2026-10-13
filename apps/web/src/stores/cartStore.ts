@@ -115,7 +115,7 @@ export const useCartStore = create<CartState>()(
       },
     }),
     {
-      name: "cordeiros-burguer-cart",
+      name: "casa-do-hamburguer-cart",
       partialize: (state) => ({ items: state.items }),
     },
   ),
