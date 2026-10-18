@@ -26,10 +26,10 @@ function parsePrice(value: string): number {
 }
 
 const inputClass =
-  "w-full bg-white rounded-[5px] border border-[#D8C9A6] px-3.5 py-2.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30";
+  "w-full rounded-brand border border-white/15 bg-ink-deep px-3.5 py-3 font-body text-[16px] text-parchment outline-none transition-colors placeholder:text-sand hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30";
 
 const labelClass =
-  "block font-oswald font-bold text-[#3A2317] text-[13px] tracking-[0.15em] mb-1.5";
+  "mb-1.5 block font-body text-[13px] font-bold uppercase tracking-[0.12em] text-sand";
 
 export default function ProdutoFormModal({
   product,
@@ -134,24 +134,24 @@ export default function ProdutoFormModal({
         show ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="absolute inset-0 bg-black/60" onClick={close} />
+      <div className="absolute inset-0 bg-black/70" onClick={close} />
 
       <div
         role="dialog"
         aria-modal="true"
-        className={`relative w-full max-w-[520px] bg-[#F3E9D2] rounded-[6px] px-8 py-4 max-h-[90vh] overflow-y-auto overflow-x-hidden transition-transform duration-200 ${
+        className={`relative w-full max-w-[520px] bg-ink-soft border border-white/10 rounded-card px-5 sm:px-8 py-4 max-h-[92dvh] overflow-y-auto overflow-x-hidden transition-transform duration-200 ${
           show ? "scale-100" : "scale-95"
         }`}
       >
-        <div className="flex items-center justify-between -mx-8 px-8 pb-4 pt-2 border-b border-dashed border-[#C0A88F]">
-          <h2 className="font-alfa text-[22px] text-[#171210]">
+        <div className="flex items-center justify-between -mx-5 px-5 sm:-mx-8 sm:px-8 pb-4 pt-2 border-b border-white/10">
+          <h2 className="font-alfa text-[22px] text-parchment">
             {isEditing ? "Editar produto" : "Novo produto"}
           </h2>
           <button
             type="button"
             onClick={close}
             aria-label="Fechar"
-            className="text-[#8E8169] hover:text-[#3A2317] cursor-pointer transition-colors"
+            className="flex h-10 w-10 items-center justify-center text-sand hover:text-parchment cursor-pointer transition-colors"
           >
             <XIcon size={22} />
           </button>
@@ -172,7 +172,7 @@ export default function ProdutoFormModal({
             />
           </div>
 
-          <div className="flex gap-4 mb-4">
+          <div className="flex flex-col gap-4 mb-4 sm:flex-row">
             <div className="flex-1 min-w-0">
               <label htmlFor="produto-categoria" className={labelClass}>
                 CATEGORIA
@@ -182,7 +182,7 @@ export default function ProdutoFormModal({
                   id="produto-categoria"
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
-                  className="w-full bg-white rounded-[5px] border border-[#D8C9A6] pl-3.5 pr-10 py-2.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30 appearance-none cursor-pointer"
+                  className="w-full rounded-brand border border-white/15 bg-ink-deep px-3.5 py-3 font-body text-[16px] text-parchment outline-none transition-colors placeholder:text-sand hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30 pr-10 appearance-none cursor-pointer"
                 >
                   {categories.length === 0 && (
                     <option value="">Nenhuma categoria</option>
@@ -196,12 +196,12 @@ export default function ProdutoFormModal({
                 </select>
                 <CaretDownIcon
                   size={16}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8E8169] pointer-events-none"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sand pointer-events-none"
                 />
               </div>
             </div>
 
-            <div className="w-[140px] shrink-0">
+            <div className="sm:w-[140px] sm:shrink-0">
               <label htmlFor="produto-preco" className={labelClass}>
                 PREÇO (R$)
               </label>
@@ -237,20 +237,20 @@ export default function ProdutoFormModal({
                 <img
                   src={resolveImageUrl(imageUrl)}
                   alt="Prévia da imagem"
-                  className="w-[80px] h-[66px] object-cover rounded-[5px] border border-[#D8C9A6]"
+                  className="w-[80px] h-[66px] object-cover rounded-brand border border-white/15"
                 />
               ) : (
-                <div className="w-[80px] h-[66px] rounded-[5px] bg-[#E4D6B8] flex items-center justify-center text-[#B0A488]">
+                <div className="w-[80px] h-[66px] rounded-brand bg-white/10 flex items-center justify-center text-sand">
                   <ImageIcon size={26} />
                 </div>
               )}
 
               <div className="flex flex-col gap-1.5">
                 <label
-                  className={`inline-flex items-center justify-center font-oswald font-bold text-[13px] tracking-[0.05em] rounded-[5px] px-4 py-2 transition-colors ${
+                  className={`inline-flex items-center justify-center font-body font-bold text-[15px] rounded-brand px-4 py-2.5 transition-colors ${
                     uploading
-                      ? "bg-[#D8C9A6] text-[#8E8169] cursor-not-allowed"
-                      : "bg-[#3A2317] text-[#F3E9D2] hover:bg-[#4a2f1e] cursor-pointer"
+                      ? "bg-white/5 text-sand cursor-not-allowed"
+                      : "bg-white/10 text-parchment hover:bg-white/20 cursor-pointer"
                   }`}
                 >
                   {uploading ? "Enviando..." : "Escolher imagem"}
@@ -267,7 +267,7 @@ export default function ProdutoFormModal({
                   <button
                     type="button"
                     onClick={() => setImageUrl("")}
-                    className="text-left font-inter text-[13px] text-[#C81D25] hover:underline cursor-pointer"
+                    className="text-left font-body text-[14px] text-red-400 hover:underline cursor-pointer"
                   >
                     Remover imagem
                   </button>
@@ -278,7 +278,7 @@ export default function ProdutoFormModal({
             {imageError && (
               <p
                 role="alert"
-                className="font-inter text-[14px] text-[#C81D25] mt-2"
+                className="font-body text-[15px] text-red-400 mt-2"
               >
                 {imageError}
               </p>
@@ -288,25 +288,25 @@ export default function ProdutoFormModal({
           {error && (
             <p
               role="alert"
-              className="font-inter text-[14px] text-[#C81D25] mt-4"
+              className="font-body text-[15px] text-red-400 mt-4"
             >
               {error}
             </p>
           )}
 
-          <div className="flex justify-end gap-3 -mx-8 px-8 pt-5 mt-8 border-t border-dashed border-[#C0A88F]">
+          <div className="flex justify-end gap-3 -mx-5 px-5 sm:-mx-8 sm:px-8 pt-5 mt-8 border-t border-white/10">
             <button
               type="button"
               onClick={close}
               disabled={submitting}
-              className="font-oswald font-bold text-[14px] tracking-[0.05em] text-[#3A2317] px-4 py-2.5 rounded-[5px] hover:bg-[#3A2317]/10 cursor-pointer transition-colors disabled:opacity-50"
+              className="cursor-pointer rounded-brand px-4 py-2.5 font-body text-[16px] font-semibold text-sand transition-colors hover:bg-white/10 hover:text-parchment disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={submitting || uploading}
-              className="font-oswald font-bold text-[14px] tracking-[0.05em] text-[#F3E9D2] bg-[#4A7C2F] hover:bg-[#3F6A28] px-5 py-2.5 rounded-[5px] cursor-pointer transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              className="cursor-pointer rounded-brand bg-brand-red px-5 py-2.5 font-body text-[16px] font-bold text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? "Salvando..." : "Salvar"}
             </button>
