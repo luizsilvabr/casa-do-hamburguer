@@ -51,17 +51,17 @@ export default function ConfirmDialog({
         show ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="absolute inset-0 bg-black/60" onClick={close} />
+      <div className="absolute inset-0 bg-black/70" onClick={close} />
 
       <div
         role="alertdialog"
         aria-modal="true"
-        className={`relative w-full max-w-[400px] bg-[#F3E9D2] rounded-[6px] p-7 transition-transform duration-200 ${
+        className={`relative w-full max-w-[400px] max-h-[92dvh] overflow-y-auto bg-ink-soft border border-white/10 rounded-card p-5 sm:p-7 transition-transform duration-200 ${
           show ? "scale-100" : "scale-95"
         }`}
       >
-        <div className="flex items-center justify-between -mx-7 px-7 pb-3 border-b border-dashed border-[#C0A88F]">
-          <h2 className="font-oswald font-bold text-[20px] text-[#171210]">
+        <div className="flex items-center justify-between -mx-5 px-5 sm:-mx-7 sm:px-7 pb-3 border-b border-white/10">
+          <h2 className="font-alfa text-[20px] text-parchment">
             {title}
           </h2>
           <button
@@ -69,25 +69,25 @@ export default function ConfirmDialog({
             onClick={close}
             disabled={busy}
             aria-label="Fechar"
-            className="text-[#8E8169] hover:text-[#3A2317] cursor-pointer transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex h-10 w-10 items-center justify-center text-sand hover:text-parchment cursor-pointer transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <XIcon size={20} />
           </button>
         </div>
-        <p className="font-inter text-[15px] text-[#5C5A52] mt-4">{message}</p>
+        <p className="font-body text-[16px] text-sand mt-4">{message}</p>
 
-        <div className="flex justify-end gap-3 -mx-7 px-7 pt-4 mt-7 border-t border-dashed border-[#C0A88F]">
+        <div className="flex justify-end gap-3 -mx-5 px-5 sm:-mx-7 sm:px-7 pt-4 mt-7 border-t border-white/10">
           <button
             onClick={close}
             disabled={busy}
-            className="font-oswald font-bold text-[14px] tracking-[0.05em] text-[#3A2317] px-4 py-2.5 rounded-[5px] hover:bg-[#3A2317]/10 cursor-pointer transition-colors disabled:opacity-50"
+            className="cursor-pointer rounded-brand px-4 py-2.5 font-body text-[16px] font-semibold text-sand transition-colors hover:bg-white/10 hover:text-parchment disabled:opacity-50"
           >
             {cancelLabel}
           </button>
           <button
             onClick={handleConfirm}
             disabled={busy}
-            className="font-oswald font-bold text-[14px] tracking-[0.05em] text-[#F3E9D2] bg-[#C81D25] hover:bg-[#a8171e] px-5 py-2.5 rounded-[5px] cursor-pointer transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="cursor-pointer rounded-brand bg-brand-red px-5 py-2.5 font-body text-[16px] font-bold text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-60"
           >
             {busy ? "..." : confirmLabel}
           </button>

@@ -20,7 +20,7 @@ import {
 
 // Link de navegação do header: dourado e sublinhado na página atual
 function navLinkClass({ isActive }: { isActive: boolean }) {
-  return `flex min-h-11 items-center rounded-brand px-3 font-body text-[16px] font-semibold transition-colors ${FOCUS_RING} ${
+  return `flex min-h-11 items-center rounded-brand px-2 font-body text-[16px] font-semibold min-[360px]:px-3 transition-colors ${FOCUS_RING} ${
     isActive
       ? "text-gold underline decoration-2 underline-offset-8"
       : "text-parchment hover:text-gold"
@@ -47,20 +47,20 @@ export default function SiteLayout() {
           <Link
             to="/"
             aria-label="Casa do Hambúrguer — página inicial"
-            className={`flex items-center gap-3 rounded-brand ${FOCUS_RING}`}
+            className={`flex min-w-0 items-center gap-2 rounded-brand min-[360px]:gap-3 ${FOCUS_RING}`}
           >
             <img
               src="/images/logo.svg"
               alt=""
               width={84}
               height={84}
-              className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+              className="h-10 w-10 shrink-0 object-contain min-[360px]:h-12 min-[360px]:w-12 sm:h-14 sm:w-14"
             />
             <div className="leading-none">
               <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-gold sm:text-xs">
                 Casa do
               </p>
-              <p className="mt-1.5 font-alfa text-[15px] uppercase tracking-normal text-parchment sm:text-[21px] sm:tracking-wide">
+              <p className="mt-1.5 font-alfa text-[13px] uppercase tracking-normal text-parchment min-[360px]:text-[15px] sm:text-[21px] sm:tracking-wide">
                 Hambúrguer
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function SiteLayout() {
                   ? `Abrir carrinho, ${totalQuantity} ${totalQuantity === 1 ? "item" : "itens"}, ${formatBRL(subtotal)}`
                   : "Abrir carrinho"
               }
-              className={`relative flex h-11 cursor-pointer items-center gap-2 rounded-full bg-cream px-4 font-body text-[16px] font-bold text-ink transition-colors hover:bg-gold ${FOCUS_RING}`}
+              className={`relative flex h-11 cursor-pointer items-center gap-2 rounded-full bg-cream px-3 font-body text-[16px] font-bold text-ink transition-colors hover:bg-gold sm:px-4 ${FOCUS_RING}`}
             >
               <ShoppingCartIcon size={22} weight="bold" aria-hidden="true" />
               <span

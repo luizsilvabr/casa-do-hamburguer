@@ -1,10 +1,11 @@
 {
   "name": "casa-do-hamburguer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cardápio digital para hamburgueria com pedidos via WhatsApp e painel admin",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:api": "npm run dev -w api",
+    "dev:web": "npm run dev -w web"
   },
   "keywords": [],
   "author": "",

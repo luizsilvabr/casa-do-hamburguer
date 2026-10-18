@@ -15,8 +15,8 @@ export default function AdminGuard() {
 
   if (status === "idle" || status === "checking") {
     return (
-      <div className="min-h-screen bg-[#171210] flex items-center justify-center">
-        <p className="text-[#C4B49A] font-inter">Verificando acesso...</p>
+      <div className="flex min-h-screen items-center justify-center bg-ink">
+        <p className="font-body text-sand">Verificando acesso...</p>
       </div>
     );
   }

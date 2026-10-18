@@ -174,48 +174,48 @@ export default function Categorias() {
   return (
     <>
       {/* HEADER */}
-      <header className="flex items-start justify-between gap-4">
+      <header className="flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
         <div>
-          <h1 className="font-alfa text-[36px] text-[#F3E9D2] leading-none">
+          <h1 className="font-alfa text-[28px] text-parchment leading-none sm:text-[36px]">
             Categorias
           </h1>
-          <p className="font-inter text-[15px] text-[#9B8F7D] mt-2">
-            Arraste pela ordem — ela define a sequência no cardápio do cliente.
+          <p className="font-body text-[16px] text-sand mt-2">
+            Use as setas para ordenar — a ordem define a sequência no cardápio do cliente.
           </p>
         </div>
 
         <button
           onClick={() => setModalTarget(null)}
-          className="shrink-0 flex items-center gap-1.5 bg-[#4A7C2F] hover:bg-[#3F6A28] text-[#F3E9D2] font-oswald font-bold text-[13px] tracking-[0.08em] px-4 py-3 rounded-[6px] cursor-pointer transition-colors"
+          className="shrink-0 flex min-h-11 cursor-pointer items-center gap-1.5 rounded-brand bg-brand-red px-4 py-3 font-body text-[15px] font-bold text-white transition-colors hover:bg-brand-red-dark"
         >
           <PlusIcon size={16} weight="bold" />
-          NOVA CATEGORIA
+          Nova categoria
         </button>
       </header>
 
       {/* BUSCA + FILTRO */}
-      <div className="flex gap-3 mt-8">
+      <div className="flex flex-col gap-3 mt-6 sm:flex-row sm:mt-8">
         <div className="relative flex-1">
           <MagnifyingGlassIcon
             size={18}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8E8169]"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sand"
           />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar categoria..."
-            className="w-full bg-[#171210] border border-[#3A2317] rounded-[8px] pl-11 pr-4 py-3 font-inter text-[15px] text-[#F3E9D2] placeholder:text-[#8E8169] outline-none focus:border-[#6B3B1F] transition-colors"
+            className="w-full rounded-brand border border-white/15 bg-ink-deep py-3 pl-11 pr-4 font-body text-[16px] text-parchment outline-none transition-colors placeholder:text-sand hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30"
           />
         </div>
 
-        <div className="relative">
+        <div className="relative sm:w-auto">
           <select
             value={statusFilter}
             onChange={(e) =>
               setStatusFilter(e.target.value as CategoryStatusFilter)
             }
-            className="appearance-none bg-[#171210] border border-[#3A2317] rounded-[8px] pl-4 pr-10 py-3 font-inter text-[15px] text-[#F3E9D2] outline-none focus:border-[#6B3B1F] cursor-pointer transition-colors"
+            className="w-full appearance-none rounded-brand border border-white/15 bg-ink-deep py-3 pl-4 pr-10 font-body text-[16px] text-parchment outline-none transition-colors hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30 cursor-pointer"
           >
             <option value="todas">Todas</option>
             <option value="ativas">Ativas</option>
@@ -223,19 +223,19 @@ export default function Categorias() {
           </select>
           <CaretDownIcon
             size={16}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8E8169] pointer-events-none"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sand pointer-events-none"
           />
         </div>
       </div>
 
       {/* LISTA */}
-      <div className="mt-8">
+      <div className="mt-6 sm:mt-8">
         {isLoading ? (
-          <p className="font-inter text-[#C4B49A]">Carregando categorias...</p>
+          <p className="font-body text-sand">Carregando categorias...</p>
         ) : loadError ? (
-          <p className="font-inter text-[#C81D25]">{loadError}</p>
+          <p className="font-body text-red-400">{loadError}</p>
         ) : filtered.length === 0 ? (
-          <p className="font-inter text-[#C4B49A]">
+          <p className="font-body text-sand">
             Nenhuma categoria encontrada.
           </p>
         ) : (
@@ -246,13 +246,13 @@ export default function Categorias() {
               const disableDown = !canMove || category.id === lastActiveId;
 
               return (
-                <li key={category.id} className="flex items-stretch">
+                <li key={category.id} className="flex items-stretch overflow-hidden rounded-card border border-white/10 bg-ink-soft">
                   {/* BADGE DE ORDEM */}
-                  <div className="shrink-0 w-[86px] bg-[#3A2317] rounded-l-[8px] flex flex-col items-center justify-center py-3">
-                    <span className="font-oswald text-[10px] tracking-[0.18em] text-[#C0A88F]">
+                  <div className="shrink-0 w-[60px] sm:w-[86px] bg-white/5 border-r border-white/10 flex flex-col items-center justify-center py-3">
+                    <span className="font-body text-[10px] font-bold tracking-[0.18em] text-sand">
                       ORDEM
                     </span>
-                    <span className="font-alfa text-[22px] text-[#F0C264] leading-none my-0.5">
+                    <span className="font-alfa text-[22px] text-gold leading-none my-0.5">
                       {orderLabelById.get(category.id)}
                     </span>
                     {category.isActive && (
@@ -261,7 +261,7 @@ export default function Categorias() {
                           aria-label="Mover para cima"
                           disabled={disableUp}
                           onClick={() => move(category, "up")}
-                          className="text-[#C0A88F] hover:text-[#F0C264] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          className="flex h-8 w-8 items-center justify-center text-sand hover:text-gold disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer sm:h-auto sm:w-auto"
                         >
                           <CaretUpIcon size={14} weight="bold" />
                         </button>
@@ -269,7 +269,7 @@ export default function Categorias() {
                           aria-label="Mover para baixo"
                           disabled={disableDown}
                           onClick={() => move(category, "down")}
-                          className="text-[#C0A88F] hover:text-[#F0C264] disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                          className="flex h-8 w-8 items-center justify-center text-sand hover:text-gold disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer sm:h-auto sm:w-auto"
                         >
                           <CaretDownIcon size={14} weight="bold" />
                         </button>
@@ -279,36 +279,36 @@ export default function Categorias() {
 
                   {/* CARD */}
                   <div
-                    className={`flex-1 min-w-0 bg-[#F3E9D2] rounded-r-[8px] flex items-center justify-between gap-4 px-6 py-4 ${
+                    className={`flex-1 min-w-0 flex items-center justify-between gap-3 px-3 py-4 sm:gap-4 sm:px-6 ${
                       category.isActive ? "" : "opacity-60"
                     }`}
                   >
                     <div className="min-w-0">
-                      <h2 className="font-oswald font-bold text-[19px] text-[#171210] truncate">
+                      <h2 className="font-alfa text-[17px] text-parchment truncate">
                         {category.name}
                       </h2>
-                      <div className="flex items-center gap-2 mt-1.5">
+                      <div className="flex flex-wrap items-center gap-2 mt-1.5">
                         {category.isActive ? (
-                          <span className="font-oswald text-[10px] tracking-[0.1em] text-[#4A7C2F] border border-[#4A7C2F] rounded-full px-2 py-0.5">
+                          <span className="font-body text-[11px] font-bold tracking-[0.08em] text-gold border border-gold/50 rounded-full px-2 py-0.5">
                             ATIVA
                           </span>
                         ) : (
-                          <span className="font-oswald text-[10px] tracking-[0.1em] text-[#9B8F7D] border border-[#9B8F7D] rounded-full px-2 py-0.5">
+                          <span className="font-body text-[11px] font-bold tracking-[0.08em] text-sand border border-white/20 rounded-full px-2 py-0.5">
                             INATIVA
                           </span>
                         )}
-                        <span className="font-oswald text-[10px] tracking-[0.1em] text-[#C08A2E] border border-[#C08A2E] rounded-full px-2 py-0.5">
+                        <span className="font-body text-[11px] font-bold tracking-[0.08em] text-sand border border-white/20 rounded-full px-2 py-0.5">
                           {category.productCount}{" "}
                           {category.productCount === 1 ? "PRODUTO" : "PRODUTOS"}
                         </span>
                       </div>
                     </div>
 
-                    <div className="shrink-0 flex items-center gap-3">
+                    <div className="shrink-0 flex items-center gap-1 sm:gap-3">
                       <button
                         aria-label="Editar categoria"
                         onClick={() => setModalTarget(category)}
-                        className="text-[#3A2317] hover:text-[#171210] cursor-pointer transition-colors"
+                        className="flex h-10 w-10 items-center justify-center text-sand hover:text-parchment cursor-pointer transition-colors sm:h-auto sm:w-auto"
                       >
                         <PencilSimpleIcon size={20} />
                       </button>
@@ -316,7 +316,7 @@ export default function Categorias() {
                         <button
                           aria-label="Desativar categoria"
                           onClick={() => setConfirmTarget(category)}
-                          className="text-[#3A2317] hover:text-[#C81D25] cursor-pointer transition-colors"
+                          className="flex h-10 w-10 items-center justify-center text-sand hover:text-red-400 cursor-pointer transition-colors sm:h-auto sm:w-auto"
                         >
                           <TrashIcon size={20} />
                         </button>
@@ -324,7 +324,7 @@ export default function Categorias() {
                         <button
                           aria-label="Reativar categoria"
                           onClick={() => handleReactivate(category)}
-                          className="text-[#3A2317] hover:text-[#4A7C2F] cursor-pointer transition-colors"
+                          className="flex h-10 w-10 items-center justify-center text-sand hover:text-gold cursor-pointer transition-colors sm:h-auto sm:w-auto"
                         >
                           <ArrowCounterClockwiseIcon size={20} />
                         </button>

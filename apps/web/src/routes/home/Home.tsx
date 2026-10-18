@@ -35,6 +35,11 @@ const INFO_ICONS: Record<StoreInfo["key"], typeof ClockIcon> = {
   payment: CreditCardIcon,
 };
 
+// Rodízio de fotos do hero
+const HERO_INTERVAL_MS = 5000;
+const HERO_MAX_PER_CATEGORY = 2;
+const HERO_MAX_SLIDES = 8;
+
 // Foto com nome e preço por cima de um degradê escuro (legibilidade do texto)
 function PhotoTile({
   produto,
@@ -74,6 +79,8 @@ function PhotoTile({
 export default function Home() {
   // fotos do hero: se a API falhar, o hero só fica sem elas
   const [featured, setFeatured] = useState<Product[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     async function loadFeatured() {
@@ -85,13 +92,24 @@ export default function Home() {
         // mesma ordem do cardápio: primeiro os produtos das categorias com
         // menor "order" (os burguers), pro hero mostrar o carro-chefe
         const orderById = new Map(categorias.map((c) => [c.id, c.order]));
-        const ordenados = [...produtos].sort(
-          (a, b) =>
-            (orderById.get(a.categoryId) ?? 0) -
-            (orderById.get(b.categoryId) ?? 0),
-        );
+        const ordenados = [...produtos]
+          .filter((p) => p.imageUrl)
+          .sort(
+            (a, b) =>
+              (orderById.get(a.categoryId) ?? 0) -
+              (orderById.get(b.categoryId) ?? 0),
+          );
+        // até 2 por categoria, pro rodízio mostrar o cardápio todo
+        const porCategoria = new Map<string, number>();
+        const selecionados = ordenados.filter((p) => {
+          const total = porCategoria.get(p.categoryId) ?? 0;
+          porCategoria.set(p.categoryId, total + 1);
+          return total < HERO_MAX_PER_CATEGORY;
+        });
         setFeatured(
-          ordenados.slice(0, 3).map((p) => ({ ...p, price: Number(p.price) })),
+          selecionados
+            .slice(0, HERO_MAX_SLIDES)
+            .map((p) => ({ ...p, price: Number(p.price) })),
         );
       } catch {
         // as fotos do hero são opcionais
@@ -100,6 +118,18 @@ export default function Home() {
 
     loadFeatured();
   }, []);
+
+  // rodízio automático; pausa com o mouse em cima e não roda com
+  // "reduzir movimento" ligado no sistema
+  useEffect(() => {
+    if (featured.length < 2 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % featured.length);
+    }, HERO_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, [featured.length, paused, activeIndex]);
 
   return (
     <main>
@@ -114,7 +144,7 @@ export default function Home() {
             {/* mobile: a primeira tela já mostra comida */}
             {featured[0] && (
               <div className="mb-8 lg:hidden" aria-hidden="true">
-                <PhotoTile produto={featured[0]} className="h-[210px]" />
+                <PhotoTile produto={featured[0]} className="h-[220px] sm:h-[320px] md:h-[400px]" />
               </div>
             )}
 
@@ -167,30 +197,53 @@ export default function Home() {
             </ul>
           </div>
 
-          {/* desktop: fotos do cardápio e a marca em quatro blocos */}
-          <div
-            aria-hidden="true"
-            className="ml-auto hidden w-full max-w-[500px] grid-cols-2 gap-4 lg:grid [&>*:nth-child(even)]:mt-10"
-          >
-            {featured.length >= 2 && (
-              <>
-                <PhotoTile produto={featured[0]} className="h-[240px]" />
-                <PhotoTile produto={featured[1]} className="h-[240px]" />
-                <div className="flex h-[240px] items-center justify-center rounded-card border border-white/10 bg-ink-soft">
-                  <img
-                    src="/images/logo.svg"
-                    alt=""
-                    width={84}
-                    height={84}
-                    className="h-28 w-28 object-contain"
-                  />
+          {/* desktop: foto grande que alterna entre itens do cardápio */}
+          {featured[0] && (
+            <div
+              className="relative ml-auto hidden w-full max-w-[520px] lg:block"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <div
+                aria-hidden="true"
+                className="absolute -inset-8 rounded-full bg-gold/15 blur-3xl"
+              />
+              <div aria-hidden="true" className="relative h-[560px]">
+                {featured.map((produto, index) => (
+                  <div
+                    key={produto.id}
+                    className={`absolute inset-0 transition-opacity duration-700 ${
+                      index === activeIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <PhotoTile
+                      produto={produto}
+                      className="h-full shadow-2xl shadow-black/60"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {featured.length > 1 && (
+                <div className="mt-5 flex justify-center gap-2">
+                  {featured.map((produto, index) => (
+                    <button
+                      key={produto.id}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      aria-label={`Mostrar ${produto.name}`}
+                      aria-current={index === activeIndex}
+                      className={`h-2.5 cursor-pointer rounded-full transition-all ${FOCUS_RING} ${
+                        index === activeIndex
+                          ? "w-7 bg-gold"
+                          : "w-2.5 bg-white/25 hover:bg-white/50"
+                      }`}
+                    />
+                  ))}
                 </div>
-                {featured[2] && (
-                  <PhotoTile produto={featured[2]} className="h-[240px]" />
-                )}
-              </>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

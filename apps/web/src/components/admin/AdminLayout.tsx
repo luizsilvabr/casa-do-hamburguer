@@ -5,12 +5,14 @@ import Toaster from "./Toaster";
 
 function navItemClass({ isActive }: { isActive: boolean }) {
   const base =
-    "flex items-center gap-3 rounded-[6px] px-3 py-2.5 font-oswald text-[15px] transition-colors";
+    "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-brand px-3 font-body text-[16px] font-semibold transition-colors lg:flex-none lg:justify-start lg:gap-3";
   return isActive
-    ? `${base} bg-[#3A2317] text-[#F0C264]`
-    : `${base} text-[#C4B49A] hover:bg-[#3A2317]/50 hover:text-[#F3E9D2]`;
+    ? `${base} bg-white/10 text-gold`
+    : `${base} text-sand hover:bg-white/5 hover:text-parchment`;
 }
 
+// Abaixo de lg o menu vira uma barra no topo (logo + sair, e as abas embaixo);
+// de lg pra cima é a sidebar lateral de sempre.
 export default function AdminLayout() {
   const logout = useAuthStore((s) => s.logout);
   const navigate = useNavigate();
@@ -21,29 +23,38 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen flex bg-[#171210]">
-      <aside className="w-[255px] shrink-0 bg-[#221A16] border-r border-[#3A2317] flex flex-col">
+    <div className="admin-ui flex min-h-screen flex-col bg-ink font-body lg:flex-row">
+      <aside className="flex w-full flex-wrap items-center border-b border-white/10 bg-ink-deep px-4 pt-3 pb-2 lg:w-[255px] lg:shrink-0 lg:flex-col lg:flex-nowrap lg:items-stretch lg:border-r lg:border-b-0 lg:p-0">
         {/* LOGO */}
-        <div className="px-6 pt-8 pb-5 text-center">
-          <p className="font-body text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8A93D] leading-none">
-            Casa do
-          </p>
-          <p className="mt-1.5 font-alfa text-[22px] uppercase leading-none tracking-wide text-[#F3E9D2]">
-            Hambúrguer
-          </p>
-          <p className="font-oswald font-bold text-[#E8A93D] text-[12px] tracking-[0.32em] mt-1.5">
-            ADMIN
-          </p>
+        <div className="order-1 flex flex-1 items-center gap-3 lg:order-none lg:flex-none lg:flex-col lg:gap-0 lg:px-6 lg:pt-8 lg:pb-5 lg:text-center">
+          <img
+            src="/images/logo.svg"
+            alt=""
+            width={84}
+            height={84}
+            className="h-10 w-10 shrink-0 object-contain lg:mb-3 lg:h-16 lg:w-16"
+          />
+          <div className="leading-none">
+            <p className="font-body text-[10px] font-bold uppercase tracking-[0.3em] text-gold lg:text-[11px]">
+              Casa do
+            </p>
+            <p className="mt-1 font-alfa text-[16px] uppercase tracking-wide text-parchment lg:mt-1.5 lg:text-[22px]">
+              Hambúrguer
+            </p>
+            <p className="mt-1 font-body text-[11px] font-bold tracking-[0.3em] text-sand lg:mt-1.5 lg:text-[12px]">
+              ADMIN
+            </p>
+          </div>
         </div>
 
-        <div className="mx-6 border-t border-dotted border-[#6B3B1F]" />
+        <div className="mx-6 hidden border-t border-white/10 lg:block" />
 
         {/* NAV */}
-        <nav className="px-4 mt-6">
-          <p className="px-3 mb-3 font-oswald font-bold text-[11px] tracking-[0.2em] text-[#8E8169]">
-            CARDÁPIO
+        <nav className="order-3 mt-2 w-full lg:order-none lg:mt-6 lg:px-4">
+          <p className="mb-3 hidden px-3 font-body text-[12px] font-bold uppercase tracking-[0.2em] text-sand lg:block">
+            Cardápio
           </p>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex gap-1.5 lg:flex-col">
             <NavLink to="/admin/categorias" className={navItemClass}>
               <ListIcon size={20} weight="bold" />
               Categorias
@@ -56,11 +67,11 @@ export default function AdminLayout() {
         </nav>
 
         {/* RODAPÉ — SAIR */}
-        <div className="mt-auto">
-          <div className="mx-6 border-t border-dotted border-[#6B3B1F]" />
+        <div className="order-2 lg:order-none lg:mt-auto">
+          <div className="mx-6 hidden border-t border-white/10 lg:block" />
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-7 py-6 font-oswald text-[15px] text-[#8E8169] hover:text-[#F3E9D2] cursor-pointer transition-colors"
+            className="flex min-h-11 cursor-pointer items-center gap-2 px-2 font-body text-[16px] font-semibold text-sand transition-colors hover:text-parchment lg:w-full lg:gap-3 lg:px-7 lg:py-6"
           >
             <SignOutIcon size={20} weight="bold" />
             Sair
@@ -69,8 +80,10 @@ export default function AdminLayout() {
       </aside>
 
       {/* CONTEÚDO */}
-      <main className="flex-1 min-w-0 px-10 py-9">
-        <Outlet />
+      <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-9">
+        <div className="mx-auto w-full max-w-[1200px]">
+          <Outlet />
+        </div>
       </main>
 
       <Toaster />

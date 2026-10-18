@@ -52,8 +52,8 @@ export default function Login() {
   }
 
   return (
-    <main className="min-h-screen bg-[#171210] flex items-center justify-center px-4">
-      <section className="w-full max-w-[460px] bg-[#F3E9D2] px-15 py-12 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
+    <main className="admin-ui flex min-h-dvh items-center justify-center bg-ink px-4 py-6 font-body">
+      <section className="w-full max-w-[460px] rounded-card border border-white/10 bg-ink-soft px-6 py-8 shadow-2xl shadow-black/50 sm:px-12 sm:py-12">
         {/* LOGO */}
         <header className="text-center">
           <img
@@ -63,30 +63,23 @@ export default function Login() {
             height={72}
             className="mx-auto mb-3 h-[72px] w-[72px]"
           />
-          <p className="font-body text-[13px] font-bold uppercase tracking-[0.3em] text-[#C81D25]">
+          <p className="font-body text-[13px] font-bold uppercase tracking-[0.3em] text-gold">
             Casa do
           </p>
-          <h1 className="mt-1.5 font-alfa text-[34px] uppercase leading-none tracking-wide text-[#171210]">
+          <h1 className="mt-1.5 font-alfa text-[26px] min-[400px]:text-[34px] uppercase leading-none tracking-wide text-parchment">
             Hambúrguer
           </h1>
 
-          <div className="mt-5 mb-8">
-            <div className="border-t-2 border-dashed border-[#6B3B1F]" />
-            <p className="font-oswald font-bold tracking-[0.22em] text-[#6B3B1F] text-[13px] py-2.5">
-              PAINEL DO ADMINISTRADOR
-            </p>
-            <div className="border-t-2 border-dashed border-[#6B3B1F]" />
-          </div>
+          <p className="mt-5 mb-8 border-y border-white/10 py-2.5 font-body text-[13px] font-bold uppercase tracking-[0.22em] text-sand">
+            Painel do administrador
+          </p>
         </header>
 
         {/* FORM */}
         <form onSubmit={handleSubmit} noValidate>
           <div className="mb-5">
-            <label
-              htmlFor="email"
-              className="block font-oswald font-bold text-[#3A2317] text-[13px] tracking-[0.15em] mb-1.5"
-            >
-              E-MAIL
+            <label htmlFor="email" className="mb-1.5 block font-body text-[13px] font-bold uppercase tracking-[0.12em] text-sand">
+              E-mail
             </label>
             <input
               id="email"
@@ -95,47 +88,41 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-white rounded-[5px] border border-[#D8C9A6] px-3.5 py-1.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30"
+              className="w-full rounded-brand border border-white/15 bg-ink-deep px-3.5 py-3 font-body text-[16px] text-parchment outline-none transition-colors placeholder:text-sand hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30"
             />
           </div>
 
-            <div className="mb-2">
-              <label
-                htmlFor="password"
-                className="block font-oswald font-bold text-[#3A2317] text-[13px] tracking-[0.15em] mb-1.5"
+          <div className="mb-2">
+            <label htmlFor="password" className="mb-1.5 block font-body text-[13px] font-bold uppercase tracking-[0.12em] text-sand">
+              Senha
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full rounded-brand border border-white/15 bg-ink-deep px-3.5 py-3 font-body text-[16px] text-parchment outline-none transition-colors placeholder:text-sand hover:border-white/30 focus:border-gold focus:ring-2 focus:ring-gold/30 pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center text-sand transition-colors hover:text-parchment"
               >
-                SENHA
-              </label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="off"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full bg-white rounded-[5px] border border-[#D8C9A6] pl-3.5 pr-11 py-2.5 font-inter text-[15px] text-[#171210] outline-none transition-colors focus:border-[#6B3B1F] focus:ring-2 focus:ring-[#6B3B1F]/30"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8E8169] hover:text-[#3A2317] cursor-pointer transition-colors"
-                >
-                  {showPassword ? (
-                    <EyeSlashIcon size={20} />
-                  ) : (
-                    <EyeIcon size={20} />
-                  )}
-                </button>
-              </div>
+                {showPassword ? (
+                  <EyeSlashIcon size={20} />
+                ) : (
+                  <EyeIcon size={20} />
+                )}
+              </button>
             </div>
+          </div>
 
           {error && (
-            <p
-              role="alert"
-              className="font-inter text-[14px] text-[#C81D25] mt-3"
-            >
+            <p role="alert" className="mt-3 font-body text-[15px] text-red-400">
               {error}
             </p>
           )}
@@ -143,13 +130,13 @@ export default function Login() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-6 bg-[#4A7C2F] hover:bg-[#3F6A28] text-[#F3E9D2] font-oswald font-bold tracking-[0.15em] text-[17px] rounded-[5px] py-3 cursor-pointer transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="mt-6 min-h-12 w-full cursor-pointer rounded-brand bg-brand-red px-5 py-2.5 font-body text-[16px] font-bold text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSubmitting ? "ENTRANDO..." : "ENTRAR"}
+            {isSubmitting ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
-        <p className="text-center font-inter text-[13px] text-[#5C5A52] mt-7">
+        <p className="mt-7 text-center font-body text-[14px] text-sand">
           Acesso restrito — sessão por cookie seguro.
         </p>
       </section>
